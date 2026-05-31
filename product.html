@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Product | Elara</title>
+  <title>Product | Dina</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
@@ -44,7 +44,7 @@
       text-transform: uppercase; color: var(--mid); transition: color 0.3s;
     }
     .nav-left a:hover, .nav-right a:hover { color: var(--gold); }
-    .topbar-logo { font-family: 'Cormorant', serif; font-size: 22px; font-weight: 300; letter-spacing: 8px; text-transform: uppercase; color: var(--ink); text-align: center; }
+    .topbar-logo { font-family: cursive; font-size: 28px; font-weight: 300; letter-spacing: 4px; text-transform: none; color: var(--ink); text-align: center; }
     .topbar-logo em { font-style: italic; font-weight: 300; color: var(--gold); letter-spacing: 2px; }
     .nav-icon-btn { font-size: 14px; color: var(--mid); position: relative; transition: color 0.3s; }
     .nav-icon-btn:hover { color: var(--gold); }
@@ -348,7 +348,7 @@
     /* ── FOOTER ────────────────────────────────────────────── */
     footer { background: #080808; color: rgba(255,255,255,0.35); }
     .footer-top { display: grid; grid-template-columns: 1.8fr 1fr 1fr 1fr; gap: 48px; padding: 80px 80px 60px; border-bottom: 1px solid rgba(255,255,255,0.04); }
-    .footer-logo-mark { font-family: 'Cormorant', serif; font-size: 28px; font-weight: 300; letter-spacing: 8px; text-transform: uppercase; color: rgba(255,255,255,0.85); margin-bottom: 20px; display: block; }
+    .footer-logo-mark { font-family: cursive; font-size: 36px; font-weight: 300; letter-spacing: 4px; text-transform: none; color: rgba(255,255,255,0.85); margin-bottom: 20px; display: block; }
     .footer-logo-mark em { font-style: italic; color: var(--gold); letter-spacing: 3px; }
     .footer-tagline { font-family: 'EB Garamond', serif; font-size: 14px; font-style: italic; color: rgba(255,255,255,0.25); margin-bottom: 32px; line-height: 1.7; }
     .footer-social { display: flex; gap: 14px; }
@@ -416,8 +416,9 @@
       .footer-bottom { padding: 22px 52px; }
     }
     @media (max-width: 1024px) {
-      .topbar { grid-template-columns: 1fr auto; padding: 0 32px; }
+      .topbar { display: flex; justify-content: space-between; align-items: center; position: fixed; padding: 0 32px; }
       .nav-left { display: none; }
+      .topbar-logo { position: absolute; left: 50%; transform: translateX(-50%); }
       .hamburger-btn { display: flex; }
       .breadcrumb { padding: 12px 32px; }
       .product-wrap { grid-template-columns: 1fr; }
@@ -450,12 +451,15 @@
 
 <!-- ── NAV ────────────────────────────────────────────────────────── -->
 <header class="topbar">
+  <button class="hamburger-btn" id="hamburger" aria-label="Menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
   <nav class="nav-left">
     <a href="index.html">Home</a>
     <a href="index.html#collections">Collections</a>
     <a href="index.html#products">Shop</a>
   </nav>
-  <a href="index.html" class="topbar-logo">Elara<em>.</em></a>
+  <a href="index.html" class="topbar-logo">Dina<em>.</em></a>
   <div class="nav-right">
     <a href="#" class="nav-icon-btn"><i class="fas fa-search"></i></a>
     <a href="#" class="nav-icon-btn"><i class="far fa-heart"></i></a>
@@ -463,9 +467,6 @@
       <i class="fas fa-shopping-bag"></i>
       <span class="nav-cart-dot" id="cart-count">0</span>
     </a>
-    <button class="hamburger-btn" id="hamburger" aria-label="Menu" aria-expanded="false">
-      <span></span><span></span><span></span>
-    </button>
   </div>
 </header>
 <div class="mobile-menu" id="mobile-menu">
@@ -518,7 +519,7 @@
 <footer>
   <div class="footer-top">
     <div>
-      <span class="footer-logo-mark">Elara<em>.</em></span>
+      <span class="footer-logo-mark">Dina<em>.</em></span>
       <p class="footer-tagline">"Crafted for eternity,<br>given with love."</p>
       <div class="footer-social">
         <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
@@ -560,7 +561,7 @@
     </div>
   </div>
   <div class="footer-bottom">
-    <p>© 2024 Elara Fine Jewellery. All rights reserved.</p>
+    <p>© 2024 Dina Fine Jewellery. All rights reserved.</p>
     <div class="footer-certs"><span class="cert-badge">BIS</span><span class="cert-badge">GIA</span><span class="cert-badge">KP</span></div>
     <div class="footer-bottom-links"><a href="#">Privacy</a><a href="#">Terms</a><a href="#">Cookies</a></div>
   </div>
@@ -611,7 +612,7 @@
     return;
   }
 
-  document.title = `${product.name} | Elara`;
+  document.title = `${product.name} | Dina`;
   $('bc-cat').textContent  = product.categoryLabel;
   $('bc-name').textContent = product.name;
 
@@ -698,11 +699,11 @@
     </div>
     <div class="acc">
       <div class="acc-hdr">Shipping & Returns <i class="fas fa-chevron-down"></i></div>
-      <div class="acc-body"><p>Free insured shipping on all orders. All pieces arrive in a signature Elara gift box with certificate of authenticity. Standard delivery 5–7 business days across India. 30-day returns on non-bespoke items.</p></div>
+      <div class="acc-body"><p>Free insured shipping on all orders. All pieces arrive in a signature Dina gift box with certificate of authenticity. Standard delivery 5–7 business days across India. 30-day returns on non-bespoke items.</p></div>
     </div>
     <div class="acc">
       <div class="acc-hdr">Certification <i class="fas fa-chevron-down"></i></div>
-      <div class="acc-body"><p>Every Elara piece carries a BIS hallmark certificate and, where applicable, a GIA grading report. All gemstones are Kimberley Process certified conflict-free.</p></div>
+      <div class="acc-body"><p>Every Dina piece carries a BIS hallmark certificate and, where applicable, a GIA grading report. All gemstones are Kimberley Process certified conflict-free.</p></div>
     </div>
     <p class="sku-line">SKU · ${product.sku}</p>`;
 

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Elara — Fine Jewellery Since 1982</title>
+  <title>Dina — Fine Jewellery Since 1982</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
@@ -92,11 +92,11 @@
     .nav-left a:hover, .nav-right a:hover { color: var(--gold) !important; }
 
     .topbar-logo {
-      font-family: 'Cormorant', serif;
-      font-size: 22px;
+      font-family: cursive;
+      font-size: 28px;
       font-weight: 300;
-      letter-spacing: 8px;
-      text-transform: uppercase;
+      letter-spacing: 4px;
+      text-transform: none;
       color: #fff;
       text-align: center;
       transition: color 0.5s;
@@ -954,11 +954,11 @@
       border-bottom: 1px solid rgba(255,255,255,0.04);
     }
     .footer-logo-mark {
-      font-family: 'Cormorant', serif;
-      font-size: 28px;
+      font-family: cursive;
+      font-size: 36px;
       font-weight: 300;
-      letter-spacing: 8px;
-      text-transform: uppercase;
+      letter-spacing: 4px;
+      text-transform: none;
       color: rgba(255,255,255,0.85);
       margin-bottom: 20px;
       display: block;
@@ -1191,12 +1191,13 @@
       .footer-bottom { padding: 22px 60px; }
     }
     @media (max-width: 1024px) {
-      .topbar { grid-template-columns: 1fr auto; padding: 0 32px; }
+      .topbar { display: flex; justify-content: space-between; align-items: center; position: fixed; padding: 0 32px; }
       .nav-left { display: none; }
       .nav-right .topbar-nav-links { display: none; }
+      .topbar-logo { position: absolute; left: 50%; transform: translateX(-50%); }
       .hamburger-btn { display: flex; }
       .hero { grid-template-columns: 1fr; min-height: auto; }
-      .hero-left { padding: 120px 48px 80px; min-height: 80vh; }
+      .hero-left { padding: 80px 48px 80px; min-height: 80vh; }
       .hero-right { height: 60vw; }
       .cat-grid { grid-template-columns: 1fr 1fr; }
       .prod-grid { grid-template-columns: repeat(2, 1fr); }
@@ -1247,12 +1248,15 @@
 
 <!-- ── NAV ────────────────────────────────────────────────────────── -->
 <header class="topbar" id="topbar">
+  <button class="hamburger-btn" id="hamburger" aria-label="Menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
   <nav class="nav-left">
     <a href="#collections">Collections</a>
     <a href="#products">Shop</a>
     <a href="#craft">Our Story</a>
   </nav>
-  <a href="#" class="topbar-logo">Elara<em>.</em></a>
+  <a href="#" class="topbar-logo">Dina<em>.</em></a>
   <div class="nav-right">
     <a href="#" class="topbar-logo" style="display:none" aria-hidden="true"></a>
     <a href="#" class="nav-icon-btn" aria-label="Search" style="font-size:14px;"><i class="fas fa-search"></i></a>
@@ -1261,9 +1265,6 @@
       <i class="fas fa-shopping-bag"></i>
       <span class="nav-cart-dot" id="cart-count">0</span>
     </a>
-    <button class="hamburger-btn" id="hamburger" aria-label="Menu" aria-expanded="false">
-      <span></span><span></span><span></span>
-    </button>
   </div>
 </header>
 
@@ -1280,7 +1281,7 @@
   <div class="hero-left">
     <div class="hero-pre">Jaipur Atelier · Est. 1982</div>
     <h1 class="hero-h1">The art of<br>the <em>rare</em></h1>
-    <p class="hero-desc">Every piece at Elara begins with a hand-drawn sketch and ends with a name — that of the artisan who crafted it. Not jewellery. Legacy.</p>
+    <p class="hero-desc">Every piece at Dina begins with a hand-drawn sketch and ends with a name — that of the artisan who crafted it. Not jewellery. Legacy.</p>
     <div class="hero-cta-row">
       <a href="#products" class="hero-cta">Explore the Edit</a>
       <a href="#collections" class="hero-cta-ghost">Our Collections</a>
@@ -1402,7 +1403,7 @@
     <h2 class="statement-h2">Where gold<br>meets <em>devotion</em></h2>
   </div>
   <div class="statement-right">
-    <p class="statement-p">From a single workshop on Johari Bazaar in Jaipur, three generations of the Elara family have kept one promise: that every piece leaving our doors will outlast the hands that made it.</p>
+    <p class="statement-p">From a single workshop on Johari Bazaar in Jaipur, three generations of the Dina family have kept one promise: that every piece leaving our doors will outlast the hands that made it.</p>
     <p class="statement-p">We use only conflict-free diamonds certified under the Kimberley Process, BIS-hallmarked 18K and 22K gold, and hand-selected gemstones graded in-house before setting.</p>
     <div class="statement-nums">
       <div class="s-num">
@@ -1436,7 +1437,7 @@
   <div class="promise-item">
     <div class="promise-icon"><i class="fas fa-infinity"></i></div>
     <div class="promise-title">Lifetime Service</div>
-    <p class="promise-desc">We restore, re-polish and re-set your Elara piece for life — at no charge. Always.</p>
+    <p class="promise-desc">We restore, re-polish and re-set your Dina piece for life — at no charge. Always.</p>
   </div>
   <div class="promise-item">
     <div class="promise-icon"><i class="fas fa-shield-alt"></i></div>
@@ -1448,7 +1449,7 @@
 <!-- ── TESTIMONIAL ─────────────────────────────────────────────────── -->
 <section class="testimonial" id="testimonial">
   <span class="test-mark" aria-hidden="true">"</span>
-  <p class="test-quote" id="test-quote">The Diamond Solitaire Ring was everything I imagined and more. The craftsmanship is impeccable — my fiancée cried when she saw it. Elara made our moment perfect.</p>
+  <p class="test-quote" id="test-quote">The Diamond Solitaire Ring was everything I imagined and more. The craftsmanship is impeccable — my fiancée cried when she saw it. Dina made our moment perfect.</p>
   <div class="test-rule"></div>
   <div class="test-name" id="test-name">Arjun Mehta</div>
   <div class="test-loc" id="test-loc">Mumbai · Diamond Solitaire Ring</div>
@@ -1478,7 +1479,7 @@
 <footer>
   <div class="footer-top">
     <div>
-      <span class="footer-logo-mark">Elara<em>.</em></span>
+      <span class="footer-logo-mark">Dina<em>.</em></span>
       <p class="footer-tagline">"Crafted for eternity,<br>given with love."</p>
       <div class="footer-social">
         <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
@@ -1520,7 +1521,7 @@
     </div>
   </div>
   <div class="footer-bottom">
-    <p>© 2024 Elara Fine Jewellery. All rights reserved.</p>
+    <p>© 2024 Dina Fine Jewellery. All rights reserved.</p>
     <div class="footer-certs">
       <span class="cert-badge">BIS</span>
       <span class="cert-badge">GIA</span>
@@ -1734,8 +1735,8 @@
 
   // ── Testimonial rotator ────────────────────────────────────────
   const TESTS = [
-    { q: 'The Diamond Solitaire Ring was everything I imagined and more. The craftsmanship is impeccable — my fiancée cried when she saw it. Elara made our moment perfect.', name: 'Arjun Mehta', loc: 'Mumbai · Diamond Solitaire Ring' },
-    { q: 'I\'ve owned fine jewellery from several brands, but Elara\'s baroque pearl studs are in a category of their own. The quality is extraordinary. I wear them every single day.', name: 'Meera Krishnan', loc: 'Bangalore · Baroque Pearl Studs' },
+    { q: 'The Diamond Solitaire Ring was everything I imagined and more. The craftsmanship is impeccable — my fiancée cried when she saw it. Dina made our moment perfect.', name: 'Arjun Mehta', loc: 'Mumbai · Diamond Solitaire Ring' },
+    { q: 'I\'ve owned fine jewellery from several brands, but Dina\'s baroque pearl studs are in a category of their own. The quality is extraordinary. I wear them every single day.', name: 'Meera Krishnan', loc: 'Bangalore · Baroque Pearl Studs' },
     { q: 'Ordered a bespoke bangle for our 25th anniversary. The team guided me through every detail. The finished piece brought my wife to tears. Worth every rupee — and more.', name: 'Rajiv Singhania', loc: 'Delhi · Emerald Kangan Bangle' },
   ];
   let testIdx = 0;
