@@ -1,0 +1,33 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --ink:        #0D0D0D;
+  --ink2:       #1C1C1C;
+  --gold:       #B8975A;
+  --gold-dim:   #8A6E3E;
+  --ivory:      #F9F7F3;
+  --parchment:  #F1EDE5;
+  --ash:        #ECEAE5;
+  --stone:      #D6D0C8;
+  --mid:        #9A9189;
+  --text:       #2A2520;
+  --danger:     #a33;
+  --success:    #2D6A4F;
+  --whatsapp:   #25D366;
+  --placeholder: #BDB6AD;
+}
+html { font-size: 16px; }
+body {
+  font-family: 'Jost', sans-serif;
+  background: var(--ivory);
+  color: var(--text);
+  font-weight: 300;
+  letter-spacing: 0.02em;
+}
+img { display: block; max-width: 100%; }
+a   { text-decoration: none; color: inherit; }
+ul  { list-style: none; }
+button { cursor: pointer; font-family: inherit; border: none; background: none; }
+input, select, textarea { font-family: 'Jost', sans-serif; }
+
+/* One placeholder colour everywhere: clearly lighter than typed text. Firefox dims placeholders by default, hence opacity. */
+::placeholder { color: var(--placeholder); opacity: 1; font-weight: 300; }
