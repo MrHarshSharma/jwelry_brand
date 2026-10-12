@@ -1,6 +1,7 @@
 "use client";
 
 import { useActionState } from "react";
+import Logo from "@/components/Logo";
 import { signIn } from "../actions";
 
 export default function LoginPage() {
@@ -9,7 +10,8 @@ export default function LoginPage() {
     <div className="adm-login">
       <form action={action} className="adm-login-card">
         <div className="adm-logo">
-          Dina<em>.</em> <span>Admin</span>
+          <Logo />
+          <span>Admin</span>
         </div>
         <label className="adm-field">
           <span>Email</span>

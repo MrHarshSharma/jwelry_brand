@@ -111,5 +111,5 @@ values
 on conflict (slug) do nothing;
 
 insert into public.promo_codes (code, percent_off) values
-  ('DINA10', 10), ('DINA20', 20), ('JAIPUR15', 15)
+  ('LAVNI10', 10), ('LAVNI20', 20), ('NAGPUR15', 15)
 on conflict (code) do nothing;

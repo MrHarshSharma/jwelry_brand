@@ -16,7 +16,7 @@ export type CartItem = {
 
 // ─── localStorage-backed store ──────────────────────────────────────────────
 
-const STORAGE_KEY = "dinaCart";
+const STORAGE_KEY = "lavniCart";
 const EMPTY: CartItem[] = [];
 const listeners = new Set<() => void>();
 let items: CartItem[] | null = null;

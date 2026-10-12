@@ -8,7 +8,7 @@ import { createClient } from "@/lib/supabase/server";
 import type { Order, OrderItem } from "@/lib/types";
 import { orderMessage, waLink } from "@/lib/whatsapp";
 
-export const metadata: Metadata = { title: "Your Order — Dina", robots: { index: false } };
+export const metadata: Metadata = { title: "Your Order", robots: { index: false } };
 
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 

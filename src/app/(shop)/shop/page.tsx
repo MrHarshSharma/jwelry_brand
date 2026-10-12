@@ -9,7 +9,20 @@ export async function generateMetadata({ searchParams }: PageProps<"/shop">): Pr
   const filters = parseShopParams(await searchParams);
   const facets = await getShopFacets();
   const category = facets.categories.find((c) => c.slug === filters.category);
-  return { title: `${category ? category.name : "Shop All"} — Dina` };
+  const title = category ? `Handmade ${category.name} in Nagpur` : "Shop Handmade Jewellery";
+  const description = category
+    ? `Shop handmade ${category.name.toLowerCase()} by Lavni, Nagpur. Traditional Maharashtrian designs, made to order and delivered across India.`
+    : "Browse Lavni's handmade jewellery — nath, thushi, kolhapuri saaj, jhumkas and bridal sets from Nagpur. Search, filter by price and metal, and order on WhatsApp.";
+  const canonical = category ? `/shop?category=${category.slug}` : "/shop";
+  // Collection pages are worth indexing; searches and other filter combinations are near-duplicates.
+  const onlyCategory = !hasActiveFilters({ ...filters, category: null }) && filters.sort === "featured";
+  return {
+    title,
+    description,
+    alternates: { canonical },
+    openGraph: { title, description, url: canonical },
+    robots: onlyCategory ? undefined : { index: false, follow: true },
+  };
 }
 
 export default async function ShopPage({ searchParams }: PageProps<"/shop">) {

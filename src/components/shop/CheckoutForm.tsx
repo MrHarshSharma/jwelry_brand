@@ -25,7 +25,7 @@ const PAY_SUBS = {
 
 type Customer = CheckoutInput["customer"];
 const EMPTY: Customer = {
-  name: "", phone: "", email: "", address: "", landmark: "", city: "", state: "", pincode: "", notes: "",
+  name: "", phone: "", email: "", address: "", landmark: "", city: "", state: "Maharashtra", pincode: "", notes: "",
   payment_method: "cod",
 };
 
@@ -134,7 +134,7 @@ export default function CheckoutForm({ shippingFee, freeShippingThreshold }: { s
             <div className="field-grid">
               <div className="field">
                 <label htmlFor="city">City</label>
-                <input id="city" className={cls("city")} value={customer.city} onChange={set("city")} placeholder="Mumbai" autoComplete="address-level2" />
+                <input id="city" className={cls("city")} value={customer.city} onChange={set("city")} placeholder="Nagpur" autoComplete="address-level2" />
               </div>
               <div className="field">
                 <label htmlFor="state">State</label>
@@ -147,7 +147,7 @@ export default function CheckoutForm({ shippingFee, freeShippingThreshold }: { s
             <div className="field-grid three" style={{ marginTop: 14 }}>
               <div className="field">
                 <label htmlFor="pincode">Pincode</label>
-                <input id="pincode" inputMode="numeric" maxLength={6} className={cls("pincode")} value={customer.pincode} onChange={set("pincode")} placeholder="400001" autoComplete="postal-code" />
+                <input id="pincode" inputMode="numeric" maxLength={6} className={cls("pincode")} value={customer.pincode} onChange={set("pincode")} placeholder="440001" autoComplete="postal-code" />
               </div>
               <div className="field" style={{ gridColumn: "span 2" }}>
                 <label htmlFor="landmark">Landmark <span className="field-opt">(optional)</span></label>

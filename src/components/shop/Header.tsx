@@ -3,34 +3,37 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import Logo from "@/components/Logo";
 import { useCart } from "./cart";
 
 const LINKS = [
+  { href: "/shop", label: "Shop All" },
   { href: "/#collections", label: "Collections" },
-  { href: "/shop", label: "Shop" },
-  { href: "/#craft", label: "Our Story" },
+  { href: "/#story", label: "Our Story" },
 ];
 
 export default function Header() {
   const pathname = usePathname();
-  const overHero = pathname === "/";
-  const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [shadow, setShadow] = useState(false);
   const { count, open } = useCart();
 
+  // Close the mobile menu on navigation.
+  const [lastPath, setLastPath] = useState(pathname);
+  if (lastPath !== pathname) {
+    setLastPath(pathname);
+    setMenuOpen(false);
+  }
+
   useEffect(() => {
-    if (!overHero) return;
-    const onScroll = () => setScrolled(window.scrollY > 80);
-    onScroll();
+    const onScroll = () => setShadow(window.scrollY > 8);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, [overHero]);
-
-  const solid = !overHero || scrolled;
+  }, []);
 
   return (
-    <>
-      <header className={`topbar${solid ? " scrolled" : ""}`}>
+    <header className={`site-header${shadow ? " raised" : ""}`}>
+      <div className="site-header-inner">
         <button
           className={`hamburger-btn${menuOpen ? " open" : ""}`}
           aria-label="Menu"
@@ -41,31 +44,33 @@ export default function Header() {
           <span />
           <span />
         </button>
-        <nav className="nav-left">
+        <nav className="header-nav" aria-label="Main">
           {LINKS.map((l) => (
-            <Link key={l.href} href={l.href}>
+            <Link key={l.href} href={l.href} className={pathname === l.href ? "active" : undefined}>
               {l.label}
             </Link>
           ))}
         </nav>
-        <Link href="/" className="topbar-logo">
-          Dina<em>.</em>
+        <Link href="/" className="header-logo" aria-label="Lavni — home">
+          <Logo />
         </Link>
-        <div className="nav-right">
-          <button className="nav-icon-btn" aria-label="Cart" onClick={open}>
+        <div className="header-icons">
+          <Link href="/shop" className="header-icon" aria-label="Search">
+            <i className="fas fa-search" />
+          </Link>
+          <button className="header-icon" aria-label={`Cart, ${count} items`} onClick={open}>
             <i className="fas fa-shopping-bag" />
-            <span className="nav-cart-dot">{count}</span>
+            {count > 0 && <span className="header-cart-count">{count}</span>}
           </button>
         </div>
-      </header>
-      <div className={`mobile-menu${menuOpen ? " open" : ""}`}>
+      </div>
+      <nav className={`mobile-menu${menuOpen ? " open" : ""}`} aria-label="Mobile">
         {LINKS.map((l) => (
           <Link key={l.href} href={l.href} onClick={() => setMenuOpen(false)}>
             {l.label}
           </Link>
         ))}
-      </div>
-      {!overHero && <div className="topbar-spacer" />}
-    </>
+      </nav>
+    </header>
   );
 }

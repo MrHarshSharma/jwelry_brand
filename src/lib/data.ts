@@ -1,4 +1,6 @@
 import "server-only";
+import { cache } from "react";
+import { BRAND } from "./brand";
 import { createClient } from "./supabase/server";
 import type { ShopFilters } from "./shop";
 import type { Category, Product, StoreSettings } from "./types";
@@ -12,15 +14,15 @@ export async function getSettings(): Promise<StoreSettings> {
     .select("store_name, whatsapp_number, shipping_fee, free_shipping_threshold")
     .eq("id", 1)
     .single();
-  return data ?? { store_name: "Dina", whatsapp_number: "", shipping_fee: 199, free_shipping_threshold: 10000 };
+  return data ?? { store_name: BRAND.name, whatsapp_number: "", shipping_fee: 199, free_shipping_threshold: 10000 };
 }
 
-export async function getCategories(): Promise<Category[]> {
+export const getCategories = cache(async (): Promise<Category[]> => {
   const supabase = await createClient();
   const { data, error } = await supabase.from("categories").select("*").order("sort_order");
   if (error) throw error;
   return data;
-}
+});
 
 export async function getActiveProducts(): Promise<Product[]> {
   const supabase = await createClient();
@@ -34,7 +36,7 @@ export async function getActiveProducts(): Promise<Product[]> {
   return data as Product[];
 }
 
-export async function getProductBySlug(slug: string): Promise<Product | null> {
+export const getProductBySlug = cache(async (slug: string): Promise<Product | null> => {
   const supabase = await createClient();
   const { data } = await supabase
     .from("products")
@@ -43,7 +45,7 @@ export async function getProductBySlug(slug: string): Promise<Product | null> {
     .eq("is_active", true)
     .maybeSingle();
   return data as Product | null;
-}
+});
 
 /** Products matching the shop page filters. `categoryId` is the resolved id of `filters.category`. */
 export async function searchProducts(filters: ShopFilters, categoryId: string | null): Promise<Product[]> {
@@ -91,7 +93,7 @@ export type ShopFacets = {
 };
 
 /** Filter options for the shop sidebar, with counts across all visible products. */
-export async function getShopFacets(): Promise<ShopFacets> {
+export const getShopFacets = cache(async (): Promise<ShopFacets> => {
   const supabase = await createClient();
   const [categories, { data, error }] = await Promise.all([
     getCategories(),
@@ -108,4 +110,4 @@ export async function getShopFacets(): Promise<ShopFacets> {
     metals: [...metals].map(([name, count]) => ({ name, count })).sort((a, b) => a.name.localeCompare(b.name)),
     priceRange: { min: prices.length ? Math.min(...prices) : 0, max: prices.length ? Math.max(...prices) : 0 },
   };
-}
+});

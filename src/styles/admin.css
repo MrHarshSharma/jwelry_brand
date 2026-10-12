@@ -1,9 +1,9 @@
 /* Admin dashboard. Everything is prefixed with .adm so it can't clash with storefront styles. */
 
 .adm {
-  --adm-bg: #F6F4F0;
+  --adm-bg: #FAF1EC;
   --adm-card: #fff;
-  --adm-line: #E7E3DC;
+  --adm-line: #EEDCD3;
   font-size: 14px;
   font-weight: 400;
   letter-spacing: 0;
@@ -11,7 +11,7 @@
   background: var(--adm-bg);
   min-height: 100vh;
 }
-.adm h1 { font-family: 'Cormorant', serif; font-weight: 500; font-size: 32px; color: var(--ink); display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.adm h1 { font-family: var(--font-heading); font-weight: 500; font-size: 32px; color: var(--ink); display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
 .adm h2 { font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase; font-weight: 500; color: var(--mid); margin-bottom: 16px; }
 :where(.adm) :is(input, select, textarea) {
   font: inherit; color: var(--text);
@@ -30,9 +30,9 @@
   padding: 24px 16px; display: flex; flex-direction: column; gap: 24px;
   position: sticky; top: 0; height: 100vh;
 }
-.adm-logo { font-family: cursive; font-size: 26px; color: #fff; padding: 0 12px; letter-spacing: 3px; }
-.adm-logo em { color: var(--gold); }
-.adm-logo span { font-family: 'Jost', sans-serif; font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); vertical-align: middle; }
+.adm-logo { display: flex; align-items: center; gap: 12px; padding: 0 12px; }
+.adm-logo .logo { font-size: 28px; }
+.adm-logo > span { font-family: var(--font-body); font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); }
 .adm-nav { display: flex; flex-direction: column; gap: 2px; }
 .adm-nav a {
   display: flex; align-items: center; gap: 12px;
@@ -68,7 +68,7 @@
 a.adm-stat:hover { border-color: var(--gold); }
 .adm-stat.accent { border-left: 3px solid var(--gold); }
 .adm-stat-label { font-size: 12px; color: var(--mid); margin-bottom: 8px; }
-.adm-stat-value { font-family: 'EB Garamond', serif; font-size: 28px; color: var(--ink); }
+.adm-stat-value { font-family: var(--font-heading); font-size: 28px; color: var(--ink); }
 
 .adm-status-list { display: flex; flex-direction: column; gap: 10px; }
 .adm-status-list li { display: flex; justify-content: space-between; align-items: center; }
@@ -76,7 +76,7 @@ a.adm-stat:hover { border-color: var(--gold); }
 /* ── Tables ────────────────────────────────────────── */
 .adm-table-wrap { overflow-x: auto; }
 .adm-table { width: 100%; border-collapse: collapse; }
-.adm-table th { text-align: left; font-size: 11px; letter-spacing: 1px; text-transform: uppercase; color: var(--mid); font-weight: 500; padding: 12px 16px; background: #FBFAF8; border-bottom: 1px solid var(--adm-line); white-space: nowrap; }
+.adm-table th { text-align: left; font-size: 11px; letter-spacing: 1px; text-transform: uppercase; color: var(--mid); font-weight: 500; padding: 12px 16px; background: #FDF7F4; border-bottom: 1px solid var(--adm-line); white-space: nowrap; }
 .adm-table td { padding: 12px 16px; border-bottom: 1px solid var(--adm-line); vertical-align: middle; }
 .adm-table tr:last-child td { border-bottom: none; }
 .adm-card:not(.adm-card-flush) .adm-table td { padding-left: 0; }
@@ -114,7 +114,7 @@ a.adm-stat:hover { border-color: var(--gold); }
 .adm-pager { display: flex; gap: 16px; justify-content: center; align-items: center; }
 
 /* ── Badges ────────────────────────────────────────── */
-.adm-badge { display: inline-block; font-size: 11px; font-weight: 500; letter-spacing: 0.5px; text-transform: capitalize; padding: 3px 10px; border-radius: 12px; background: var(--ash); color: var(--text); vertical-align: middle; font-family: 'Jost', sans-serif; }
+.adm-badge { display: inline-block; font-size: 11px; font-weight: 500; letter-spacing: 0.5px; text-transform: capitalize; padding: 3px 10px; border-radius: 12px; background: var(--ash); color: var(--text); vertical-align: middle; font-family: var(--font-body); }
 .adm-badge-pending    { background: #FFF4DB; color: #8A6100; }
 .adm-badge-confirmed  { background: #E6F0FF; color: #1D4F99; }
 .adm-badge-processing { background: #F1E8FF; color: #5B2D99; }
@@ -202,7 +202,8 @@ a.adm-stat:hover { border-color: var(--gold); }
 /* ── Login ─────────────────────────────────────────── */
 .adm-login { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 24px; background: var(--ink); }
 .adm-login-card { background: #fff; border-radius: 12px; padding: 36px; width: 100%; max-width: 380px; display: flex; flex-direction: column; gap: 16px; }
-.adm-login-card .adm-logo { color: var(--ink); padding: 0; margin-bottom: 8px; text-align: center; }
+.adm-login-card .adm-logo { flex-direction: column; gap: 10px; padding: 0; margin-bottom: 8px; }
+.adm-login-card .adm-logo .logo { font-size: 40px; }
 .adm-login-card .adm-btn { width: 100%; padding: 12px; }
 .adm-login-card p { line-height: 1.6; }
 

@@ -1,5 +1,6 @@
 import { redirect } from "next/navigation";
 import AdminNav from "@/components/admin/AdminNav";
+import Logo from "@/components/Logo";
 import { getAdminSession } from "@/lib/admin";
 import { signOut } from "../actions";
 import SubmitButton from "@/components/admin/SubmitButton";
@@ -12,7 +13,10 @@ export default async function DashboardLayout({ children }: { children: React.Re
     return (
       <div className="adm-login">
         <div className="adm-login-card">
-          <div className="adm-logo">Dina<em>.</em> <span>Admin</span></div>
+          <div className="adm-logo">
+            <Logo />
+            <span>Admin</span>
+          </div>
           <p>
             <strong>{user.email}</strong> is signed in but is not an admin. Add this user to the <code>admins</code>{" "}
             table in Supabase (see README), then reload.
@@ -33,7 +37,10 @@ export default async function DashboardLayout({ children }: { children: React.Re
   return (
     <div className="adm-shell">
       <aside className="adm-side">
-        <div className="adm-logo">Dina<em>.</em> <span>Admin</span></div>
+        <div className="adm-logo">
+          <Logo tone="light" tagline={false} />
+          <span>Admin</span>
+        </div>
         <AdminNav pendingOrders={pending ?? 0} />
         <div className="adm-side-foot">
           <a href="/" target="_blank" className="adm-side-link"><i className="fas fa-external-link-alt" /> View store</a>

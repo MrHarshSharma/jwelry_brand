@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { requireAdmin } from "@/lib/admin";
+import { BRAND } from "@/lib/brand";
 import { getSettings } from "@/lib/data";
 import { slugify } from "@/lib/format";
 import { PRODUCT_IMAGES_BUCKET, productImagePath } from "@/lib/storage";
@@ -311,7 +312,7 @@ export async function saveSettings(fd: FormData) {
   const { error } = await supabase
     .from("store_settings")
     .update({
-      store_name: str(fd, "store_name") || "Dina",
+      store_name: str(fd, "store_name") || BRAND.name,
       whatsapp_number: whatsapp,
       shipping_fee: int(fd, "shipping_fee"),
       free_shipping_threshold: int(fd, "free_shipping_threshold"),

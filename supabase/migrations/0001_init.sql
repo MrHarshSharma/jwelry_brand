@@ -1,4 +1,4 @@
--- Dina storefront schema.
+-- Lavni storefront schema.
 -- Run in the Supabase SQL editor (or `supabase db push`), then run supabase/seed.sql.
 
 create extension if not exists pgcrypto;
@@ -77,7 +77,7 @@ create table public.promo_codes (
 
 create table public.store_settings (
   id                      integer primary key default 1 check (id = 1),
-  store_name              text not null default 'Dina',
+  store_name              text not null default 'Lavni',
   whatsapp_number         text not null default '',  -- digits with country code, e.g. 919876543210
   shipping_fee            integer not null default 199,
   free_shipping_threshold integer not null default 10000,

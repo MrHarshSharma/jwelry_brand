@@ -1,6 +1,6 @@
-# Dina — Fine Jewellery Store
+# Lavni — Handmade Jewellery, Nagpur
 
-A Next.js storefront and admin dashboard for Dina, backed by Supabase. Customers check out over WhatsApp.
+A Next.js storefront and admin dashboard for Lavni Handmade Jewellery (Nagpur, Maharashtra), backed by Supabase. Customers check out over WhatsApp.
 
 - **Storefront**: home, collections, product pages, cart, checkout and an order confirmation page. The design is ported from the original static site, which is kept in `legacy/` for reference.
 - **WhatsApp checkout**: the order is saved in Supabase, then the customer sends it to the store's WhatsApp number in one tap. The message is pre-filled with the items, totals and address.
@@ -17,7 +17,7 @@ Next.js 16 (App Router, Server Actions) · Supabase (Postgres, Auth, Storage, RL
 1. Create a project at [supabase.com](https://supabase.com).
 2. Open **SQL Editor** and run these two files in order:
    - `supabase/migrations/0001_init.sql`: tables, row-level security, order functions and the `product-images` storage bucket
-   - `supabase/seed.sql`: the original 12 products, 4 categories and the promo codes `DINA10`, `DINA20` and `JAIPUR15`
+   - `supabase/seed.sql`: the original 12 products, 4 categories and the promo codes `LAVNI10`, `LAVNI20` and `NAGPUR15`
 
 ### 2. Create an admin user
 
@@ -72,6 +72,19 @@ Once that's done:
 - The order page gets a **Send WhatsApp update** checkbox. It sends `order_status_update` to the customer when you change the status.
 
 If a message fails to send, the error is logged and the order is not affected.
+
+## Brand & SEO
+
+- Business details (address, phone, email, hours, social links) live in `src/lib/brand.ts`. Empty values are hidden on the site. Fill them in, because they also feed Google's local business data.
+- Colours are CSS variables at the top of `src/app/globals.css`. The logo is `src/components/Logo.tsx` and the favicon is `src/app/icon.svg`.
+- SEO covers:
+  - page titles and descriptions
+  - canonical URLs
+  - `JewelryStore` and `Product` structured data
+  - `sitemap.xml` and `robots.txt`
+  - a generated social share image
+
+  Set `NEXT_PUBLIC_SITE_URL` to your real domain in production so links and the sitemap are correct.
 
 ## Project layout
 

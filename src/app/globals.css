@@ -1,33 +1,64 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
-  --ink:        #0D0D0D;
-  --ink2:       #1C1C1C;
-  --gold:       #B8975A;
-  --gold-dim:   #8A6E3E;
-  --ivory:      #F9F7F3;
-  --parchment:  #F1EDE5;
-  --ash:        #ECEAE5;
-  --stone:      #D6D0C8;
-  --mid:        #9A9189;
-  --text:       #2A2520;
+  /* Lavni palette — taken from the brand poster: wine maroon, antique gold, blush paper. */
+  --ink:        #5A1228;   /* wine maroon: dark sections, buttons, headings */
+  --ink2:       #461020;   /* deeper maroon: marquee, alternate dark panels */
+  --ink3:       #33091A;   /* darkest: footer */
+  --gold:       #C49A48;
+  --gold-dim:   #9A7333;
+  --ivory:      #FDF6F2;   /* page background */
+  --parchment:  #F7E6DC;   /* peach panels */
+  --ash:        #F0DCD2;   /* hairlines */
+  --stone:      #DEC5B9;   /* borders */
+  --mid:        #9A7A73;   /* muted text */
+  --text:       #3B1C23;
   --danger:     #a33;
   --success:    #2D6A4F;
   --whatsapp:   #25D366;
-  --placeholder: #BDB6AD;
+  --placeholder: #C9B2A8;
+  --tint:       #FBEDE6;   /* selected / highlighted rows */
+  --beige:      #EFE3D3;   /* home hero panel */
+  --sand:       #F0E8DC;   /* soft panels (category cards, footer) */
+  --line:       #EAEAEA;   /* card borders */
+  --radius:     10px;      /* buttons */
+  --radius-sm:  4px;       /* cards, badges */
+
+  /* Type: Manrope for headings and prices, DM Sans for text (as on shyle.in). Playfair is only for the logo. */
+  --font-heading: 'Manrope', system-ui, sans-serif;
+  --font-body:    'DM Sans', system-ui, sans-serif;
 }
 html { font-size: 16px; }
 body {
-  font-family: 'Jost', sans-serif;
-  background: var(--ivory);
+  font-family: var(--font-body);
+  background: #fff;
   color: var(--text);
-  font-weight: 300;
-  letter-spacing: 0.02em;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
 }
 img { display: block; max-width: 100%; }
 a   { text-decoration: none; color: inherit; }
 ul  { list-style: none; }
 button { cursor: pointer; font-family: inherit; border: none; background: none; }
-input, select, textarea { font-family: 'Jost', sans-serif; }
+input, select, textarea { font-family: var(--font-body); }
 
 /* One placeholder colour everywhere: clearly lighter than typed text. Firefox dims placeholders by default, hence opacity. */
 ::placeholder { color: var(--placeholder); opacity: 1; font-weight: 300; }
+
+/* ── Lavni logo ──────────────────────────────────────────────
+   Sized by font-size on .logo (or a parent); everything inside scales in em. */
+.logo { display: inline-flex; flex-direction: column; align-items: center; line-height: 1; font-size: 30px; }
+.logo-word {
+  position: relative; padding-right: 0.4em;
+  font-family: 'Playfair Display', 'Cormorant', serif; font-weight: 600; font-size: 1em; letter-spacing: 0.01em;
+}
+.logo-jhumka { position: absolute; right: 0.02em; top: 0.02em; width: 0.32em; height: 0.6em; color: var(--gold); }
+.logo-tag {
+  display: flex; align-items: center; gap: 0.7em; margin-top: 0.45em;
+  font-family: var(--font-body); font-size: 0.22em; font-weight: 400; letter-spacing: 0.3em; text-transform: uppercase;
+}
+.logo-tag::before, .logo-tag::after { content: ''; width: 1.6em; height: 1px; background: var(--gold); }
+.logo--maroon .logo-word, .logo--maroon .logo-tag { color: var(--ink); }
+.logo--light .logo-word { color: #FDF6F2; }
+.logo--light .logo-tag { color: rgba(253,246,242,0.75); }

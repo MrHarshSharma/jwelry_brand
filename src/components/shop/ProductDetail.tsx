@@ -173,7 +173,7 @@ export default function ProductDetail({ product: p }: { product: Product }) {
         </div>
 
         <div className="cert-strip">
-          <i className="fas fa-certificate" /> BIS Hallmarked · Certificate of Authenticity included
+          <i className="fas fa-hand-sparkles" /> Handmade in Nagpur · Made to order for you
         </div>
 
         {accordions.map((a) => (

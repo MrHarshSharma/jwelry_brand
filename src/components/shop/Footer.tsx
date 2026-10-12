@@ -1,28 +1,44 @@
 import Link from "next/link";
+import Logo from "@/components/Logo";
+import Newsletter from "@/components/shop/Newsletter";
+import { BRAND } from "@/lib/brand";
+
+const SOCIAL_ICONS = {
+  instagram: "fa-instagram",
+  facebook: "fa-facebook-f",
+  pinterest: "fa-pinterest-p",
+  youtube: "fa-youtube",
+} as const;
 
 export default function Footer({ categories }: { categories: { slug: string; name: string }[] }) {
+  const socials = (Object.keys(SOCIAL_ICONS) as (keyof typeof SOCIAL_ICONS)[]).filter((k) => BRAND.social[k]);
+  const { address } = BRAND;
+
   return (
     <footer>
       <div className="footer-top">
         <div>
-          <span className="footer-logo-mark">
-            Dina<em>.</em>
-          </span>
-          <p className="footer-tagline">
-            &ldquo;Crafted for eternity,
-            <br />
-            given with love.&rdquo;
-          </p>
-          <div className="footer-social">
-            <a href="#" aria-label="Instagram"><i className="fab fa-instagram" /></a>
-            <a href="#" aria-label="Pinterest"><i className="fab fa-pinterest-p" /></a>
-            <a href="#" aria-label="Facebook"><i className="fab fa-facebook-f" /></a>
-            <a href="#" aria-label="YouTube"><i className="fab fa-youtube" /></a>
-          </div>
+          <Link href="/" className="footer-logo-mark" aria-label={`${BRAND.name} — home`}>
+            <Logo />
+          </Link>
+          <p className="footer-tagline">Handmade in Nagpur, worn with pride.</p>
+          <h5 className="footer-newsletter-title">Newsletter</h5>
+          <p className="footer-newsletter-text">Sign up for new collections and exclusive offers.</p>
+          <Newsletter />
+          {socials.length > 0 && (
+            <div className="footer-social">
+              {socials.map((k) => (
+                <a key={k} href={BRAND.social[k]} target="_blank" rel="noopener noreferrer" aria-label={k}>
+                  <i className={`fab ${SOCIAL_ICONS[k]}`} />
+                </a>
+              ))}
+            </div>
+          )}
         </div>
         <div className="footer-col">
           <h5>Collections</h5>
           <ul>
+            <li><Link href="/shop">Shop All</Link></li>
             {categories.map((c) => (
               <li key={c.slug}>
                 <Link href={`/shop?category=${c.slug}`}>{c.name}</Link>
@@ -33,42 +49,52 @@ export default function Footer({ categories }: { categories: { slug: string; nam
         <div className="footer-col">
           <h5>Help</h5>
           <ul>
-            <li><a href="#">Size Guide</a></li>
-            <li><a href="#">Care Guide</a></li>
-            <li><a href="#">Shipping & Returns</a></li>
-            <li><a href="#">Certification</a></li>
-            <li><a href="#">Privacy Policy</a></li>
+            <li><Link href="/shop">Browse &amp; Search</Link></li>
+            <li><Link href="/#craft">Our Story</Link></li>
+            <li><Link href="/checkout">Checkout</Link></li>
           </ul>
         </div>
         <div className="footer-col">
           <h5>Atelier</h5>
           <address>
-            14 Johari Bazaar
+            {address.street && (
+              <>
+                {address.street}
+                <br />
+              </>
+            )}
+            {address.city}, {address.region}
+            {address.postalCode && ` ${address.postalCode}`}
             <br />
-            Jaipur, Rajasthan 302003
-            <br />
-            <br />
-            <a href="tel:+911412345678">+91 141 234 5678</a>
-            <br />
-            <a href="mailto:hello@elara.in">hello@elara.in</a>
-            <br />
-            <br />
-            Mon – Sat · 10am to 7pm
+            India
+            {(BRAND.phone || BRAND.email) && <br />}
+            {BRAND.phone && (
+              <>
+                <br />
+                <a href={`tel:${BRAND.phone.replace(/\s/g, "")}`}>{BRAND.phone}</a>
+              </>
+            )}
+            {BRAND.email && (
+              <>
+                <br />
+                <a href={`mailto:${BRAND.email}`}>{BRAND.email}</a>
+              </>
+            )}
+            {BRAND.hours && (
+              <>
+                <br />
+                <br />
+                {BRAND.hours}
+              </>
+            )}
           </address>
         </div>
       </div>
       <div className="footer-bottom">
-        <p>© {new Date().getFullYear()} Dina Fine Jewellery. All rights reserved.</p>
-        <div className="footer-certs">
-          <span className="cert-badge">BIS</span>
-          <span className="cert-badge">GIA</span>
-          <span className="cert-badge">KP</span>
-        </div>
-        <div className="footer-bottom-links">
-          <a href="#">Privacy</a>
-          <a href="#">Terms</a>
-          <a href="#">Cookies</a>
-        </div>
+        <p>
+          © {new Date().getFullYear()} {BRAND.legalName}, Nagpur. All rights reserved.
+        </p>
+        <p className="footer-made">Handcrafted in Maharashtra</p>
       </div>
     </footer>
   );

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import CheckoutForm from "@/components/shop/CheckoutForm";
 import { getSettings } from "@/lib/data";
 
-export const metadata: Metadata = { title: "Checkout — Dina" };
+export const metadata: Metadata = { title: "Checkout", robots: { index: false } };
 
 export default async function CheckoutPage() {
   const settings = await getSettings();

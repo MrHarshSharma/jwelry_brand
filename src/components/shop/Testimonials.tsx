@@ -2,20 +2,20 @@
 
 import { useEffect, useState } from "react";
 
-const TESTS = [
-  { q: "The Diamond Solitaire Ring was everything I imagined and more. The craftsmanship is impeccable — my fiancée cried when she saw it. Dina made our moment perfect.", name: "Arjun Mehta", loc: "Mumbai · Diamond Solitaire Ring" },
-  { q: "I've owned fine jewellery from several brands, but Dina's baroque pearl studs are in a category of their own. The quality is extraordinary. I wear them every single day.", name: "Meera Krishnan", loc: "Bangalore · Baroque Pearl Studs" },
-  { q: "Ordered a bespoke bangle for our 25th anniversary. The team guided me through every detail. The finished piece brought my wife to tears. Worth every rupee — and more.", name: "Rajiv Singhania", loc: "Delhi · Emerald Kangan Bangle" },
-];
+// Add real customer reviews here (with their permission) and the section appears on the home page.
+// Example: { q: "The thushi I ordered for my wedding was beautiful…", name: "Priya D.", loc: "Nagpur · Thushi Necklace" },
+const TESTS: { q: string; name: string; loc: string }[] = [];
 
 export default function Testimonials() {
   const [idx, setIdx] = useState(0);
 
   useEffect(() => {
+    if (TESTS.length < 2) return;
     const t = setInterval(() => setIdx((i) => (i + 1) % TESTS.length), 5000);
     return () => clearInterval(t);
   }, [idx]);
 
+  if (TESTS.length === 0) return null;
   const t = TESTS[idx];
   return (
     <section className="testimonial">
