@@ -180,39 +180,41 @@ export async function saveProduct(p: ProductPayload): Promise<{ error: string } 
   redirect("/admin/products");
 }
 
-/** Delete a newly uploaded image that was removed from the form before the product was saved. */
+/** Delete a newly uploaded image that was removed or replaced in a form before it was saved. */
 export async function discardUpload(url: string) {
   const supabase = await requireAdmin();
   await removeUnusedImages(supabase, [url]);
 }
 
 /**
- * Delete product images from storage once nothing refers to them any more. Call it after the product
- * row has been updated or deleted. Skips files outside our bucket, files another product still shows,
- * and files used as thumbnails on past orders.
+ * Delete images from storage once nothing refers to them any more. Call it after the product or
+ * category row has been updated or deleted. Skips files outside our bucket, files a product or
+ * category still shows, and files used as thumbnails on past orders.
  */
 async function removeUnusedImages(supabase: Awaited<ReturnType<typeof requireAdmin>>, urls: string[]) {
   const candidates = [...new Set(urls)].filter((url) => productImagePath(url));
   if (!candidates.length) return;
 
-  const [products, orderItems] = await Promise.all([
+  const [products, categories, orderItems] = await Promise.all([
     supabase.from("products").select("images").overlaps("images", candidates),
+    supabase.from("categories").select("image_url").in("image_url", candidates),
     supabase.from("order_items").select("product_image").in("product_image", candidates),
   ]);
-  if (products.error || orderItems.error) {
+  if (products.error || categories.error || orderItems.error) {
     // If we can't tell whether a file is still in use, keep it.
-    console.error("Image cleanup skipped", products.error ?? orderItems.error);
+    console.error("Image cleanup skipped", products.error ?? categories.error ?? orderItems.error);
     return;
   }
   const inUse = new Set<string>([
     ...products.data.flatMap((p) => p.images as string[]),
+    ...categories.data.map((c) => c.image_url as string),
     ...orderItems.data.map((i) => i.product_image as string),
   ]);
 
   const paths = candidates.filter((url) => !inUse.has(url)).map((url) => productImagePath(url)!);
   if (!paths.length) return;
   const { error } = await supabase.storage.from(PRODUCT_IMAGES_BUCKET).remove(paths);
-  if (error) console.error("Failed to delete product images", paths, error);
+  if (error) console.error("Failed to delete images", paths, error);
 }
 
 export async function toggleProduct(fd: FormData) {
@@ -249,18 +251,29 @@ export async function saveCategory(fd: FormData) {
     image_url: optStr(fd, "image_url"),
     sort_order: optInt(fd, "sort_order") ?? 0,
   };
+  const previousImage = id
+    ? (await supabase.from("categories").select("image_url").eq("id", id).single()).data?.image_url
+    : null;
+
   const { error } = id
     ? await supabase.from("categories").update(row).eq("id", id)
     : await supabase.from("categories").insert(row);
   if (error?.code === "23505") throw new Error(`A category with slug "${row.slug}" already exists`);
   check(error);
+  if (previousImage && previousImage !== row.image_url) await removeUnusedImages(supabase, [previousImage]);
   revalidatePath("/admin/categories");
 }
 
 export async function deleteCategory(fd: FormData) {
   const supabase = await requireAdmin();
-  const { error } = await supabase.from("categories").delete().eq("id", str(fd, "id"));
+  const { data: deleted, error } = await supabase
+    .from("categories")
+    .delete()
+    .eq("id", str(fd, "id"))
+    .select("image_url");
   check(error);
+  const image = deleted?.[0]?.image_url;
+  if (image) await removeUnusedImages(supabase, [image]);
   revalidatePath("/admin/categories");
 }
 

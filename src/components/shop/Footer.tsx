@@ -1,6 +1,5 @@
 import Link from "next/link";
 import Logo from "@/components/Logo";
-import Newsletter from "@/components/shop/Newsletter";
 import { BRAND } from "@/lib/brand";
 
 const SOCIAL_ICONS = {
@@ -22,9 +21,6 @@ export default function Footer({ categories }: { categories: { slug: string; nam
             <Logo />
           </Link>
           <p className="footer-tagline">Handmade in Nagpur, worn with pride.</p>
-          <h5 className="footer-newsletter-title">Newsletter</h5>
-          <p className="footer-newsletter-text">Sign up for new collections and exclusive offers.</p>
-          <Newsletter />
           {socials.length > 0 && (
             <div className="footer-social">
               {socials.map((k) => (

@@ -41,6 +41,36 @@ export const BRAND = {
 
   themeColor: "#5A1228",
 
+  // Home page banner slides. Replace `image` with your own campaign photos (wide, ~1800×760px works best;
+  // put files in /public/banners and use "/banners/your-file.jpg"). `position` picks which part of the
+  // photo stays visible when it's cropped, e.g. "center", "left", "70% 40%".
+  heroSlides: [
+    {
+      image: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=1800&h=760&q=80",
+      position: "center",
+      title: "The Pearl Edit",
+      subtitle: "Keshi strands and baroque studs, finished by hand.",
+      cta: "Shop pearls",
+      href: "/shop?q=pearl",
+    },
+    {
+      image: "https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format&fit=crop&w=1800&h=760&q=80",
+      position: "center",
+      title: "Rings for Every Occasion",
+      subtitle: "Solitaires, bands and cocktail rings, made to your size.",
+      cta: "Shop rings",
+      href: "/shop?category=rings",
+    },
+    {
+      image: "https://images.unsplash.com/photo-1543294001-f7cd5d7fb516?auto=format&fit=crop&w=1800&h=760&q=80",
+      position: "center",
+      title: "New Arrivals",
+      subtitle: "Fresh from our Nagpur workshop.",
+      cta: "Shop new in",
+      href: "/shop?sort=newest",
+    },
+  ],
+
   // Scrolling strip at the very top of every page — use it for offers and key promises.
   announcements: ["Handmade in Nagpur", "Delivery Across India", "Order on WhatsApp", "Made to Order"],
 };

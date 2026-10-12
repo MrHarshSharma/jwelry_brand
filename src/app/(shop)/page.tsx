@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import JsonLd from "@/components/JsonLd";
+import HeroSlider from "@/components/shop/HeroSlider";
 import { ProductCarousel } from "@/components/shop/ProductGrid";
 import Testimonials from "@/components/shop/Testimonials";
+import { BRAND } from "@/lib/brand";
 import { getActiveProducts, getCategories } from "@/lib/data";
 import { storeJsonLd, websiteJsonLd } from "@/lib/seo";
 
@@ -15,11 +17,39 @@ const BUDGETS = [
   { label: "Above", amount: "₹1,00,000", href: "/shop?min=100000" },
 ];
 
-const PROMISES = [
-  { icon: "fas fa-hand-sparkles", title: "Handcrafted", desc: "Shaped, set and finished by hand by our artisans in Nagpur." },
-  { icon: "fas fa-pen-nib", title: "Made to Order", desc: "Made once you order, so sizes and finishes can be adjusted." },
-  { icon: "fas fa-truck", title: "Delivery Across India", desc: "Carefully packed and shipped to your doorstep." },
-  { icon: "fab fa-whatsapp", title: "Order on WhatsApp", desc: "Confirm your order and ask anything directly with us." },
+// Thin line icons (24×24, drawn with the current text colour).
+const ICONS = {
+  gem: (
+    <>
+      <path d="M6 3h12l3 6-9 12L3 9z" />
+      <path d="M3 9h18M9 3l-1 6 4 12 4-12-1-6" />
+    </>
+  ),
+  pencil: (
+    <>
+      <path d="M4 20h4L19 9a2.83 2.83 0 0 0-4-4L4 16z" />
+      <path d="M13.5 6.5l4 4" />
+    </>
+  ),
+  parcel: (
+    <>
+      <path d="M21 8l-9-5-9 5v8l9 5 9-5z" />
+      <path d="M3 8l9 5 9-5M12 13v8M7.5 5.5l9 5" />
+    </>
+  ),
+  chat: (
+    <>
+      <path d="M21 11.5a8.5 8.5 0 0 1-12.6 7.4L3 20l1.2-4.9A8.5 8.5 0 1 1 21 11.5z" />
+      <path d="M8.5 11.5h.01M12 11.5h.01M15.5 11.5h.01" />
+    </>
+  ),
+};
+
+const PROMISES: { icon: keyof typeof ICONS; title: string; desc: string }[] = [
+  { icon: "gem", title: "Handcrafted", desc: "Shaped, set and finished by hand by our artisans in Nagpur." },
+  { icon: "pencil", title: "Made to Order", desc: "Made once you order, so sizes and finishes can be adjusted." },
+  { icon: "parcel", title: "Delivery Across India", desc: "Carefully packed and shipped to your doorstep." },
+  { icon: "chat", title: "Order on WhatsApp", desc: "Confirm your order and ask anything directly with us." },
 ];
 
 export default async function HomePage() {
@@ -32,30 +62,30 @@ export default async function HomePage() {
       <JsonLd data={[storeJsonLd(), websiteJsonLd()]} />
 
       {/* ── Hero banner ── */}
-      <section className="hero-banner">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          className="hero-banner-img"
-          src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=1800&q=80"
-          alt="Handmade jewellery by Lavni, Nagpur"
-        />
-        <div className="hero-banner-content">
-          <span className="hero-eyebrow">Handmade Jewellery · Nagpur</span>
-          <h1 className="hero-title">
-            Adorned in <em>tradition</em>
-          </h1>
-          <p className="hero-text">
-            Maharashtrian jewellery shaped by hand — from the curve of a nath to the last bead of a thushi.
-          </p>
-          <div className="hero-actions">
-            <Link href="/shop" className="btn btn-primary">
-              Shop Now
-            </Link>
-            <a href="#collections" className="btn btn-outline">
-              Explore Collections
-            </a>
-          </div>
-        </div>
+      <HeroSlider slides={BRAND.heroSlides} />
+
+      {/* ── Promises ── */}
+      <section className="home-section promise-section">
+        <ul className="promise-strip">
+          {PROMISES.map((p) => (
+            <li className="promise-item" key={p.title}>
+              <svg
+                className="promise-icon"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.3"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
+                {ICONS[p.icon]}
+              </svg>
+              <h3>{p.title}</h3>
+              <p>{p.desc}</p>
+            </li>
+          ))}
+        </ul>
       </section>
 
       {/* ── Shop by category ── */}
@@ -105,17 +135,22 @@ export default async function HomePage() {
 
       {/* ── Shop by budget ── */}
       <section className="home-section">
-        <h2 className="section-title section-title-center">Shop by Budget</h2>
-        <div className="budget-grid">
-          {BUDGETS.map((b) => (
-            <Link key={b.href} href={b.href} className="budget-card">
-              <span className="budget-label">{b.label}</span>
-              <span className="budget-amount">{b.amount}</span>
-              <span className="budget-cta">
-                Shop now <i className="fas fa-arrow-right" />
-              </span>
-            </Link>
-          ))}
+        <div className="budget-band">
+          <div className="budget-intro">
+            <span className="budget-eyebrow">Shop by Budget</span>
+            <h2 className="budget-heading">Find the piece for every occasion</h2>
+          </div>
+          <nav className="budget-list" aria-label="Shop by budget">
+            {BUDGETS.map((b) => (
+              <Link key={b.href} href={b.href} className="budget-item">
+                <span className="budget-label">{b.label}</span>
+                <span className="budget-amount">{b.amount}</span>
+                <span className="budget-cta">
+                  Shop <i className="fas fa-arrow-right" />
+                </span>
+              </Link>
+            ))}
+          </nav>
         </div>
       </section>
 
@@ -157,21 +192,6 @@ export default async function HomePage() {
               Explore the Collection
             </Link>
           </div>
-        </div>
-      </section>
-
-      {/* ── Promises ── */}
-      <section className="home-section">
-        <div className="promise-grid">
-          {PROMISES.map((p) => (
-            <div className="promise-card" key={p.title}>
-              <i className={p.icon} />
-              <div>
-                <h3>{p.title}</h3>
-                <p>{p.desc}</p>
-              </div>
-            </div>
-          ))}
         </div>
       </section>
 

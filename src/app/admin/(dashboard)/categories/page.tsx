@@ -1,7 +1,8 @@
-import ConfirmButton from "@/components/admin/ConfirmButton";
+import CategoryRow from "@/components/admin/CategoryRow";
+import ImageUploadField from "@/components/admin/ImageUploadField";
 import { requireAdmin } from "@/lib/admin";
 import type { Category } from "@/lib/types";
-import { deleteCategory, saveCategory } from "../../actions";
+import { saveCategory } from "../../actions";
 import SubmitButton from "@/components/admin/SubmitButton";
 
 export default async function CategoriesPage() {
@@ -27,32 +28,14 @@ export default async function CategoriesPage() {
                 <th>Order</th>
                 <th>Name</th>
                 <th>Slug</th>
-                <th>Image URL</th>
+                <th>Image</th>
                 <th>Products</th>
                 <th />
               </tr>
             </thead>
             <tbody>
               {(categories as Category[] | null)?.map((c) => (
-                <tr key={c.id}>
-                  <td colSpan={4}>
-                    <form action={saveCategory} className="adm-inline-form">
-                      <input type="hidden" name="id" value={c.id} />
-                      <input name="sort_order" type="number" defaultValue={c.sort_order} className="adm-input-xs" />
-                      <input name="name" defaultValue={c.name} required />
-                      <input name="slug" defaultValue={c.slug} />
-                      <input name="image_url" defaultValue={c.image_url ?? ""} placeholder="/image/ring.jpg" />
-                      <SubmitButton pendingText="Saving…">Save</SubmitButton>
-                    </form>
-                  </td>
-                  <td>{counts.get(c.id) ?? 0}</td>
-                  <td className="adm-actions">
-                    <form action={deleteCategory}>
-                      <input type="hidden" name="id" value={c.id} />
-                      <ConfirmButton message={`Delete ${c.name}? Its products will become uncategorised.`}>Delete</ConfirmButton>
-                    </form>
-                  </td>
-                </tr>
+                <CategoryRow key={c.id} category={c} productCount={counts.get(c.id) ?? 0} />
               ))}
             </tbody>
           </table>
@@ -62,10 +45,10 @@ export default async function CategoriesPage() {
       <section className="adm-card">
         <h2>Add category</h2>
         <form action={saveCategory} className="adm-inline-form">
-          <input name="sort_order" type="number" placeholder="Order" className="adm-input-xs" />
+          <input name="sort_order" type="number" placeholder="#" aria-label="Order" className="adm-input-xs" />
           <input name="name" placeholder="Name" required />
           <input name="slug" placeholder="slug (optional)" />
-          <input name="image_url" placeholder="Image URL (optional)" />
+          <ImageUploadField name="image_url" folder="categories" />
           <SubmitButton className="adm-btn adm-btn-primary" pendingText="Adding…">Add</SubmitButton>
         </form>
       </section>
