@@ -3,10 +3,12 @@ import Link from "next/link";
 import JsonLd from "@/components/JsonLd";
 import HeroSlider from "@/components/shop/HeroSlider";
 import { ProductCarousel } from "@/components/shop/ProductGrid";
+import SocialLinks, { hasSocialLinks } from "@/components/shop/SocialLinks";
 import Testimonials from "@/components/shop/Testimonials";
 import { BRAND } from "@/lib/brand";
-import { getActiveProducts, getCategories } from "@/lib/data";
+import { getActiveProducts, getCategories, getSettings } from "@/lib/data";
 import { storeJsonLd, websiteJsonLd } from "@/lib/seo";
+import { waLink } from "@/lib/whatsapp";
 
 export const metadata: Metadata = { alternates: { canonical: "/" } };
 
@@ -53,7 +55,10 @@ const PROMISES: { icon: keyof typeof ICONS; title: string; desc: string }[] = [
 ];
 
 export default async function HomePage() {
-  const [products, categories] = await Promise.all([getActiveProducts(), getCategories()]);
+  const [products, categories, settings] = await Promise.all([getActiveProducts(), getCategories(), getSettings()]);
+  const whatsappUrl = settings.whatsapp_number
+    ? waLink(settings.whatsapp_number, `Hello ${BRAND.name}! I'd like to know more about your jewellery.`)
+    : null;
   const featured = products.filter((p) => p.is_featured);
   const newest = [...products].reverse().slice(0, 10);
 
@@ -155,43 +160,37 @@ export default async function HomePage() {
       </section>
 
       {/* ── Story ── */}
-      <section className="home-section" id="story">
-        <div className="story-card">
-          <div className="story-media">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/image/necklace.jpg" alt="A handmade Lavni necklace" loading="lazy" />
-          </div>
-          <div className="story-body">
-            <span className="hero-eyebrow">Our Story</span>
-            <h2 className="story-title">
-              Where craft meets <em>culture</em>
-            </h2>
-            <p>
-              Lavni takes its spirit from Lavani — the colour, rhythm and confidence of Maharashtra&rsquo;s most joyful
-              stage. Our jewellery carries that same spirit: bold, graceful and made to be celebrated.
-            </p>
-            <p>
-              From our workshop in Nagpur, each piece is handmade in small batches, keeping alive the craft of the
-              nath, the thushi and the kolhapuri saaj — for brides, for festivals, and for every day in between.
-            </p>
-            <div className="story-stats">
-              <div>
-                <strong>100%</strong>
-                <span>Handmade</span>
-              </div>
-              <div>
-                <strong>Nagpur</strong>
-                <span>Our atelier</span>
-              </div>
-              <div>
-                <strong>India</strong>
-                <span>We deliver</span>
-              </div>
-            </div>
+      <section className="home-section story" id="story">
+        <div className="story-collage">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img className="story-img-main" src="/image/necklace.jpg" alt="Handmade Lavni necklace" loading="lazy" />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img className="story-img-detail" src="/image/earings.jpg" alt="Handmade Lavni earrings" loading="lazy" />
+        </div>
+        <div className="story-text">
+          <span className="story-label">Our Story</span>
+          <h2 className="story-title">Named after Lavani, made in Nagpur</h2>
+          <p>
+            Lavni takes its name from Lavani, Maharashtra&rsquo;s most spirited stage tradition. Every piece is shaped
+            by hand in our Nagpur workshop, in small batches — nath, thushi, kolhapuri saaj and more, for brides,
+            festivals and everyday wear.
+          </p>
+          <div className="story-actions">
             <Link href="/shop" className="btn btn-primary">
-              Explore the Collection
+              Shop the Collection
             </Link>
+            {whatsappUrl && (
+              <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="btn btn-outline">
+                <i className="fab fa-whatsapp" /> Chat with us
+              </a>
+            )}
           </div>
+          {hasSocialLinks() && (
+            <div className="story-social">
+              <span>Follow our craft</span>
+              <SocialLinks />
+            </div>
+          )}
         </div>
       </section>
 

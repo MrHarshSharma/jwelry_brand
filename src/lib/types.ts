@@ -98,7 +98,6 @@ export type PromoCode = {
 };
 
 export type StoreSettings = {
-  store_name: string;
   whatsapp_number: string;
   shipping_fee: number;
   free_shipping_threshold: number;

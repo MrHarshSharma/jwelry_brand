@@ -1,6 +1,5 @@
 import "server-only";
 import { cache } from "react";
-import { BRAND } from "./brand";
 import { createClient } from "./supabase/server";
 import type { ShopFilters } from "./shop";
 import type { Category, Product, StoreSettings } from "./types";
@@ -11,10 +10,10 @@ export async function getSettings(): Promise<StoreSettings> {
   const supabase = await createClient();
   const { data } = await supabase
     .from("store_settings")
-    .select("store_name, whatsapp_number, shipping_fee, free_shipping_threshold")
+    .select("whatsapp_number, shipping_fee, free_shipping_threshold")
     .eq("id", 1)
     .single();
-  return data ?? { store_name: BRAND.name, whatsapp_number: "", shipping_fee: 199, free_shipping_threshold: 10000 };
+  return data ?? { whatsapp_number: "", shipping_fee: 199, free_shipping_threshold: 10000 };
 }
 
 export const getCategories = cache(async (): Promise<Category[]> => {

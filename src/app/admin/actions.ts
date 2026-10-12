@@ -4,7 +4,6 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { requireAdmin } from "@/lib/admin";
 import { BRAND } from "@/lib/brand";
-import { getSettings } from "@/lib/data";
 import { slugify } from "@/lib/format";
 import { PRODUCT_IMAGES_BUCKET, productImagePath } from "@/lib/storage";
 import { createClient } from "@/lib/supabase/server";
@@ -72,12 +71,11 @@ export async function updateOrder(fd: FormData) {
 
   // Optional Cloud API status message to the customer.
   if (order && before?.status !== status && fd.get("notify") === "on") {
-    const { store_name } = await getSettings();
     await sendTemplate(order.customer_phone, process.env.WHATSAPP_TEMPLATE_STATUS_UPDATE ?? "", [
       order.customer_name.split(" ")[0],
       order.order_number,
       status,
-      store_name,
+      BRAND.name,
     ]);
   }
   revalidatePath("/admin", "layout");
@@ -325,7 +323,6 @@ export async function saveSettings(fd: FormData) {
   const { error } = await supabase
     .from("store_settings")
     .update({
-      store_name: str(fd, "store_name") || BRAND.name,
       whatsapp_number: whatsapp,
       shipping_fee: int(fd, "shipping_fee"),
       free_shipping_threshold: int(fd, "free_shipping_threshold"),

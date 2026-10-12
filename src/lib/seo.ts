@@ -3,7 +3,8 @@ import type { Product } from "./types";
 
 /** The shop as a local business in Nagpur — powers Google's business panel and local results. */
 export function storeJsonLd() {
-  const sameAs = Object.values(BRAND.social).filter(Boolean);
+  // Only real profile links: skip empty values and bare network home pages (placeholders).
+  const sameAs = Object.values(BRAND.social).filter((url) => url && new URL(url).pathname.replace(/\/$/, "") !== "");
   return {
     "@context": "https://schema.org",
     "@type": "JewelryStore",

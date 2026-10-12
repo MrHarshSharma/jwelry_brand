@@ -3,7 +3,6 @@ import { notFound } from "next/navigation";
 import ConfirmButton from "@/components/admin/ConfirmButton";
 import StatusBadge from "@/components/admin/StatusBadge";
 import { requireAdmin } from "@/lib/admin";
-import { getSettings } from "@/lib/data";
 import { formatDate, formatINR } from "@/lib/format";
 import { ORDER_STATUSES, PAYMENT_METHODS, PAYMENT_STATUSES, type Order, type OrderItem } from "@/lib/types";
 import { cloudApiEnabled, statusMessage, waLink } from "@/lib/whatsapp";
@@ -13,10 +12,7 @@ import SubmitButton from "@/components/admin/SubmitButton";
 export default async function OrderDetailPage({ params }: PageProps<"/admin/orders/[id]">) {
   const { id } = await params;
   const supabase = await requireAdmin();
-  const [{ data }, settings] = await Promise.all([
-    supabase.from("orders").select("*, items:order_items(*)").eq("id", id).maybeSingle(),
-    getSettings(),
-  ]);
+  const { data } = await supabase.from("orders").select("*, items:order_items(*)").eq("id", id).maybeSingle();
   if (!data) notFound();
   const order = data as Order & { items: OrderItem[] };
 
@@ -31,7 +27,7 @@ export default async function OrderDetailPage({ params }: PageProps<"/admin/orde
           <p className="adm-muted">Placed {formatDate(order.created_at)}</p>
         </div>
         <a
-          href={waLink(order.customer_phone, statusMessage(order, settings.store_name))}
+          href={waLink(order.customer_phone, statusMessage(order))}
           target="_blank"
           rel="noopener noreferrer"
           className="adm-btn adm-btn-whatsapp"

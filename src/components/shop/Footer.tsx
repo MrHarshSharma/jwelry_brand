@@ -1,16 +1,10 @@
 import Link from "next/link";
 import Logo from "@/components/Logo";
+import SocialLinks from "@/components/shop/SocialLinks";
 import { BRAND } from "@/lib/brand";
 
-const SOCIAL_ICONS = {
-  instagram: "fa-instagram",
-  facebook: "fa-facebook-f",
-  pinterest: "fa-pinterest-p",
-  youtube: "fa-youtube",
-} as const;
 
 export default function Footer({ categories }: { categories: { slug: string; name: string }[] }) {
-  const socials = (Object.keys(SOCIAL_ICONS) as (keyof typeof SOCIAL_ICONS)[]).filter((k) => BRAND.social[k]);
   const { address } = BRAND;
 
   return (
@@ -21,15 +15,7 @@ export default function Footer({ categories }: { categories: { slug: string; nam
             <Logo />
           </Link>
           <p className="footer-tagline">Handmade in Nagpur, worn with pride.</p>
-          {socials.length > 0 && (
-            <div className="footer-social">
-              {socials.map((k) => (
-                <a key={k} href={BRAND.social[k]} target="_blank" rel="noopener noreferrer" aria-label={k}>
-                  <i className={`fab ${SOCIAL_ICONS[k]}`} />
-                </a>
-              ))}
-            </div>
-          )}
+          <SocialLinks className="footer-social" />
         </div>
         <div className="footer-col">
           <h5>Collections</h5>

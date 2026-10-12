@@ -19,10 +19,6 @@ export default async function SettingsPage() {
           <h2>Store</h2>
           <form action={saveSettings} className="adm-form">
             <label className="adm-field">
-              <span>Store name</span>
-              <input name="store_name" defaultValue={settings.store_name} />
-            </label>
-            <label className="adm-field">
               <span>WhatsApp number for orders</span>
               <input name="whatsapp_number" defaultValue={settings.whatsapp_number} placeholder="919876543210" inputMode="numeric" />
               <small>Country code + number, digits only. Customers send their orders here.</small>

@@ -32,11 +32,13 @@ export const BRAND = {
   email: "", // e.g. "hello@lavni.in"
   hours: "", // e.g. "Mon – Sat · 11am to 8pm"
 
+  // PLACEHOLDERS: these point at each network's home page. Replace with your profile URLs,
+  // e.g. "https://instagram.com/lavni.jewellery". Set one to "" to hide its icon.
   social: {
-    instagram: "", // full URLs, e.g. "https://instagram.com/lavni.jewellery"
-    facebook: "",
-    pinterest: "",
-    youtube: "",
+    instagram: "https://www.instagram.com/",
+    facebook: "https://www.facebook.com/",
+    pinterest: "https://www.pinterest.com/",
+    youtube: "https://www.youtube.com/",
   },
 
   themeColor: "#5A1228",

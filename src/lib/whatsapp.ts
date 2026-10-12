@@ -1,3 +1,4 @@
+import { BRAND } from "./brand";
 import { formatINR } from "./format";
 import { PAYMENT_METHODS, type Order, type OrderItem, type OrderStatus } from "./types";
 
@@ -51,9 +52,9 @@ const STATUS_COPY: Record<OrderStatus, string> = {
 };
 
 /** Message the store sends the customer about their order status. */
-export function statusMessage(order: Pick<Order, "customer_name" | "order_number" | "status" | "total">, storeName: string) {
+export function statusMessage(order: Pick<Order, "customer_name" | "order_number" | "status" | "total">) {
   const first = order.customer_name.split(" ")[0];
-  return `Hello ${first}, your ${storeName} order *${order.order_number}* (${formatINR(order.total)}) ${STATUS_COPY[order.status]}. Thank you!`;
+  return `Hello ${first}, your ${BRAND.name} order *${order.order_number}* (${formatINR(order.total)}) ${STATUS_COPY[order.status]}. Thank you!`;
 }
 
 // ─── Meta WhatsApp Cloud API (optional) ─────────────────────────────────────
